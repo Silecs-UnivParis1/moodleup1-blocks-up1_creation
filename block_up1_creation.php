@@ -66,7 +66,7 @@ class block_up1_creation extends block_base {
 				$navigation .= html_writer::tag('li', $lien);
 			}
 			if ($permassistant) {
-				$url = new moodle_url('/local/course_validated/index.php', ['id' => $context->instanceid]);
+				$url = new moodle_url('/local/crswizard/update/index.php', ['id' => $context->instanceid]);
 				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('update', $this->blockname)));
 			}
 			if ($permsuppression) {
