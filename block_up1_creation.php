@@ -16,6 +16,8 @@ class block_up1_creation extends block_base {
 	  
     public function get_content() {
         if ($this->content !== null) {
+			global $PAGE;
+			$PAGE->requires->js('/blocks/up1_creation/javascript/up1creation.js');
 			return $this->content;
         }
         
@@ -50,55 +52,60 @@ class block_up1_creation extends block_base {
 		}
 		
 		$navigation = '';
-		$icon = $OUTPUT->pix_icon('i/navigationitem', '');
+		$aramlinktoogle = ['class' => 'linktoogle', 'style' => 'cursor: pointer', 'onclick' => 'togglecollapseall("assistantcrsw");', 'id' => 'assistantcrsw'];
+		$arambloctoogle = ['type' => 'none', 'class' => 'bloctoogle', 'id' => 'blocassistantcrsw'];
+		$iconeslink = $OUTPUT->pix_icon('t/expanded', '', 'moodle') . $OUTPUT->pix_icon('t/collapsed', '', 'moodle', ['class' => 'hidden']);
 		
 		if ($permcreator || $permvalidator) {
 			$navigation .= html_writer::start_tag('ul', ['type' => 'none']);
-			$navigation .= html_writer::start_tag('li');
-			$navigation = html_writer::tag('span', get_string('assistant', $this->blockname));
-			$navigation .= html_writer::start_tag('ul', ['type' => 'none']);
+			$navigation .= html_writer::start_tag('li', $aramlinktoogle);
+			$navigation .= $iconeslink;
+			$navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
+			$navigation .= html_writer::end_tag('li'); 
+			
+			$navigation .= html_writer::start_tag('ul', $arambloctoogle);
 			if ($permcreator) {
-				$lien = html_writer::link(new moodle_url('/local/crswizard/index.php'), $icon . get_string('create', $this->blockname));
+				$lien = html_writer::link(new moodle_url('/local/crswizard/index.php'), $OUTPUT->pix_icon('t/add', '', 'moodle') . get_string('create', $this->blockname));
 				$navigation .= html_writer::tag('li', $lien);
 			}
 			if ($permvalidator) {
-				$lien = html_writer::link(new moodle_url('/local/course_validated/index.php'), $icon . get_string('approve', $this->blockname));
+				$lien = html_writer::link(new moodle_url('/local/course_validated/index.php'), $OUTPUT->pix_icon('t/approve', '', 'moodle') . get_string('approve', $this->blockname));
 				$navigation .= html_writer::tag('li', $lien);
 			}
 			if ($permassistant) {
 				$url = new moodle_url('/local/crswizard/update/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('update', $this->blockname)));
+				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('t/edit', '', 'moodle') . get_string('update', $this->blockname)));
 			}
 			if ($permsuppression) {
 				$url = new moodle_url('/local/crswizard/delete/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('delete', $this->blockname)));
+				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/trash', '', 'moodle') . get_string('delete', $this->blockname)));
 			}
 			if ($permassistant && $archived == FALSE) {
 				$url = new moodle_url('/local/crswizard/archive/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('archive', $this->blockname)));
+				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/backup', '', 'moodle') . get_string('archive', $this->blockname)));
 			}
-			$navigation .= html_writer::end_tag('ul');
-			$navigation .= html_writer::end_tag('li');
+			$navigation .= html_writer::end_tag('ul'); 
 			
 		} elseif ($permassistant) {
 			
 			$navigation .= html_writer::start_tag('ul', ['type' => 'none']);
-			$navigation .= html_writer::start_tag('li');
-			$navigation = html_writer::tag('span', get_string('assistant', $this->blockname));
-			$navigation .= html_writer::start_tag('ul');
+			$navigation .= html_writer::start_tag('li', $aramlinktoogle);
+			$navigation .= $iconeslink;
+			$navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
+			$navigation .= html_writer::end_tag('li'); 
+			$navigation .= html_writer::start_tag('ul', $arambloctoogle);
 			$url = new moodle_url('/local/course_validated/index.php', ['id' => $context->instanceid]);
-			$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('update', $this->blockname)));
+			$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('t/edit', '', 'moodle') . get_string('update', $this->blockname)));
 			
 			if ($permsuppression) {
 				$url = new moodle_url('/local/crswizard/delete/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('delete', $this->blockname)));
+				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/trash', '', 'moodle') . get_string('delete', $this->blockname)));
 			}
 			if ($archived == FALSE) {
 				$url = new moodle_url('/local/crswizard/archive/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $icon . get_string('archive', $this->blockname)));
+				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/backup', '', 'moodle') . get_string('archive', $this->blockname)));
 			}
 			$navigation .= html_writer::end_tag('ul');
-			$navigation .= html_writer::end_tag('li');
 		}
 		
 		if ($navigation != '') {
