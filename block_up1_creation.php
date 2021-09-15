@@ -52,7 +52,7 @@ class block_up1_creation extends block_base {
 		}
 		
 		$navigation = '';
-		$aramlinktoogle = ['class' => 'linktoogle', 'style' => 'cursor: pointer', 'onclick' => 'togglecollapseall("assistantcrsw");', 'id' => 'assistantcrsw'];
+		$aramlinktoogle = ['class' => 'linktoogle', 'onclick' => 'togglecollapseall("assistantcrsw");', 'id' => 'assistantcrsw'];
 		$arambloctoogle = ['type' => 'none', 'class' => 'bloctoogle', 'id' => 'blocassistantcrsw'];
 		$iconeslink = $OUTPUT->pix_icon('t/expanded', '', 'moodle') . $OUTPUT->pix_icon('t/collapsed', '', 'moodle', ['class' => 'hidden']);
 		
@@ -65,24 +65,24 @@ class block_up1_creation extends block_base {
 			
 			$navigation .= html_writer::start_tag('ul', $arambloctoogle);
 			if ($permcreator) {
-				$lien = html_writer::link(new moodle_url('/local/crswizard/index.php'), $OUTPUT->pix_icon('t/add', '', 'moodle') . get_string('create', $this->blockname));
-				$navigation .= html_writer::tag('li', $lien);
+				$url = new moodle_url('/local/crswizard/index.php');
+				$navigation .= $this->get_item_crswizard_navigation('li', 'create', $url, 't/add');
 			}
 			if ($permvalidator) {
-				$lien = html_writer::link(new moodle_url('/local/course_validated/index.php'), $OUTPUT->pix_icon('t/approve', '', 'moodle') . get_string('approve', $this->blockname));
-				$navigation .= html_writer::tag('li', $lien);
+				$url = new moodle_url('/local/course_validated/index.php');
+				$navigation .= $this->get_item_crswizard_navigation('li', 'approve', $url, 't/approve');
 			}
 			if ($permassistant) {
 				$url = new moodle_url('/local/crswizard/update/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('t/edit', '', 'moodle') . get_string('update', $this->blockname)));
+				$navigation .= $this->get_item_crswizard_navigation('li', 'update', $url, 'i/edit');
 			}
 			if ($permsuppression) {
 				$url = new moodle_url('/local/crswizard/delete/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/trash', '', 'moodle') . get_string('delete', $this->blockname)));
+				$navigation .= $this->get_item_crswizard_navigation('li', 'delete', $url, 'i/trash');
 			}
 			if ($permassistant && $archived == FALSE) {
 				$url = new moodle_url('/local/crswizard/archive/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/backup', '', 'moodle') . get_string('archive', $this->blockname)));
+				$navigation .= $this->get_item_crswizard_navigation('li', 'archive', $url, 'i/backup');
 			}
 			$navigation .= html_writer::end_tag('ul'); 
 			
@@ -94,16 +94,16 @@ class block_up1_creation extends block_base {
 			$navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
 			$navigation .= html_writer::end_tag('li'); 
 			$navigation .= html_writer::start_tag('ul', $arambloctoogle);
-			$url = new moodle_url('/local/course_validated/index.php', ['id' => $context->instanceid]);
-			$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('t/edit', '', 'moodle') . get_string('update', $this->blockname)));
 			
+			$url = new moodle_url('/local/course_validated/index.php');
+			$navigation .= $this->get_item_crswizard_navigation('li', 'approve', $url, 't/approve');
 			if ($permsuppression) {
 				$url = new moodle_url('/local/crswizard/delete/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/trash', '', 'moodle') . get_string('delete', $this->blockname)));
+				$navigation .= $this->get_item_crswizard_navigation('li', 'delete', $url, 'i/trash');
 			}
 			if ($archived == FALSE) {
 				$url = new moodle_url('/local/crswizard/archive/index.php', ['id' => $context->instanceid]);
-				$navigation .= html_writer::tag('li', html_writer::link($url, $OUTPUT->pix_icon('i/backup', '', 'moodle') . get_string('archive', $this->blockname)));
+				$navigation .= $this->get_item_crswizard_navigation('li', 'archive', $url, 'i/backup');
 			}
 			$navigation .= html_writer::end_tag('ul');
 		}
@@ -113,5 +113,18 @@ class block_up1_creation extends block_base {
 		}
 		
 		return $navigation;
+	}
+	
+	/**
+	 * Construit 
+	 * @param string $htmltag tag html
+	 * @param string $support identifiant chaine de caractère du fichier de langue du block
+	 * @param moodle_url $url
+	 * @param string $icone url pix
+	 * @return string HTML
+	 */
+	private function get_item_crswizard_navigation($htmltag, $support, $url, $icone) {
+		global $OUTPUT;
+		return  html_writer::tag($htmltag, html_writer::link($url, $OUTPUT->pix_icon($icone, '', 'moodle') . get_string($support, $this->blockname)));
 	}
 }
