@@ -1,6 +1,6 @@
 <?php
 /**
- * @package    block_up1_cration
+ * @package    block_up1_creation
  * @copyright  2021 Silecs & Université Paris1 Panthéon-Sorbonne
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
