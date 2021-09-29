@@ -13,4 +13,3 @@ $string['create'] = 'Création / duplication';
 $string['delete'] = 'Suppression';
 $string['title'] = 'Création de cours';
 $string['update'] = 'Paramétrage';
-
