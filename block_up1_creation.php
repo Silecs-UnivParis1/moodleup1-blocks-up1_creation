@@ -56,18 +56,18 @@ class block_up1_creation extends block_base
         }
         
         $navigation = '';
-        $aramlinktoogle = ['class' => 'linktoogle', 'onclick' => 'togglecollapseallnavigation("assistantcrsw");', 'id' => 'assistantcrsw'];
-        $arambloctoogle = ['type' => 'none', 'class' => 'bloctoogle', 'id' => 'blocassistantcrsw'];
+        $paramlinktoogle = ['class' => 'linktoogle', 'onclick' => 'togglecollapseallnavigation("assistantcrsw");', 'id' => 'assistantcrsw'];
+        $parambloctoogle = ['type' => 'none', 'class' => 'bloctoogle', 'id' => 'blocassistantcrsw'];
         $iconeslink = $OUTPUT->pix_icon('t/expanded', '', 'moodle') . $OUTPUT->pix_icon('t/collapsed', '', 'moodle', ['class' => 'hidden']);
         
         if ($permcreator || $permvalidator) {
             $navigation .= html_writer::start_tag('ul', ['type' => 'none']);
-            $navigation .= html_writer::start_tag('li', $aramlinktoogle);
+            $navigation .= html_writer::start_tag('li', $paramlinktoogle);
             $navigation .= $iconeslink;
             $navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
             $navigation .= html_writer::end_tag('li');
             
-            $navigation .= html_writer::start_tag('ul', $arambloctoogle);
+            $navigation .= html_writer::start_tag('ul', $parambloctoogle);
             if ($permcreator) {
                 $url = new moodle_url('/local/crswizard/index.php');
                 $navigation .= $this->get_item_crswizard_navigation('li', 'create', $url, 't/add');
@@ -91,11 +91,11 @@ class block_up1_creation extends block_base
             $navigation .= html_writer::end_tag('ul');
         } elseif ($permassistant) {
             $navigation .= html_writer::start_tag('ul', ['type' => 'none']);
-            $navigation .= html_writer::start_tag('li', $aramlinktoogle);
+            $navigation .= html_writer::start_tag('li', $paramlinktoogle);
             $navigation .= $iconeslink;
             $navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
             $navigation .= html_writer::end_tag('li');
-            $navigation .= html_writer::start_tag('ul', $arambloctoogle);
+            $navigation .= html_writer::start_tag('ul', $parambloctoogle);
             
             $url = new moodle_url('/local/course_validated/index.php');
             $navigation .= $this->get_item_crswizard_navigation('li', 'approve', $url, 't/approve');
