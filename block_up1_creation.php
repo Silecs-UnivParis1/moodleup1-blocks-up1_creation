@@ -17,11 +17,12 @@ class block_up1_creation extends block_base
       
     public function get_content()
     {
+        global $PAGE;
         if ($this->content !== null) {
-            global $PAGE;
-            $PAGE->requires->js('/blocks/up1_creation/javascript/up1creation.js');
             return $this->content;
         }
+        
+        $PAGE->requires->js('/blocks/up1_creation/javascript/up1creation.js');
         
         $this->content = (object) [
             'items' => [],
@@ -55,7 +56,7 @@ class block_up1_creation extends block_base
         }
         
         $navigation = '';
-        $aramlinktoogle = ['class' => 'linktoogle', 'onclick' => 'togglecollapseall("assistantcrsw");', 'id' => 'assistantcrsw'];
+        $aramlinktoogle = ['class' => 'linktoogle', 'onclick' => 'togglecollapseallnavigation("assistantcrsw");', 'id' => 'assistantcrsw'];
         $arambloctoogle = ['type' => 'none', 'class' => 'bloctoogle', 'id' => 'blocassistantcrsw'];
         $iconeslink = $OUTPUT->pix_icon('t/expanded', '', 'moodle') . $OUTPUT->pix_icon('t/collapsed', '', 'moodle', ['class' => 'hidden']);
         

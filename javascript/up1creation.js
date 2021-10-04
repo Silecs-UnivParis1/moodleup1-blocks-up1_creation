@@ -1,4 +1,4 @@
-function togglecollapseall(id) {
+function togglecollapseallnavigation(id) {
     var element = document.getElementById(id);
     if (element) {
 		var enfants = element.childNodes;
