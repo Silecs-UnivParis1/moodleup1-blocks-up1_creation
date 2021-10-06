@@ -1,3 +1,9 @@
 .block_up1_creation .linktoogle {
 	cursor: pointer;
 }
+.block_up1_creation ul.bloctoogle li {
+    line-height: 20px;
+}
+.block_up1_creation ul.actionlist {
+    margin-bottom: 0px;
+}

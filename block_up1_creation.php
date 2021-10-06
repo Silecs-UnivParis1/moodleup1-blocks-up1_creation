@@ -61,7 +61,7 @@ class block_up1_creation extends block_base
         $iconeslink = $OUTPUT->pix_icon('t/expanded', '', 'moodle') . $OUTPUT->pix_icon('t/collapsed', '', 'moodle', ['class' => 'hidden']);
         
         if ($permcreator || $permvalidator) {
-            $navigation .= html_writer::start_tag('ul', ['type' => 'none']);
+            $navigation .= html_writer::start_tag('ul', ['type' => 'none', 'class' => 'actionlist']);
             $navigation .= html_writer::start_tag('li', $paramlinktoogle);
             $navigation .= $iconeslink;
             $navigation .= html_writer::tag('span', get_string('assistant', $this->blockname));
