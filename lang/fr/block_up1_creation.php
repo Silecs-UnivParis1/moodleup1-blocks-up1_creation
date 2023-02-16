@@ -13,3 +13,5 @@ $string['create'] = 'Création / duplication';
 $string['delete'] = 'Suppression';
 $string['title'] = 'Création de cours';
 $string['update'] = 'Paramétrage';
+$string['up1_creation:addinstance'] = 'Ajouter un block création de cours UP1';
+$string['up1_creation:myaddinstance'] = 'Ajouter un bloc de création de cours UP1 au tableau de bord';

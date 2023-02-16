@@ -7,7 +7,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021061003;
+$plugin->version = 2023021600;
 $plugin->requires =  2020060900;
 $plugin->component = 'block_up1_creation';
 
